@@ -23,17 +23,20 @@ pipeline {
                 }
             }
         }
+        
         stage ('docker image creation and push to nexus repo') {
             steps {
-                withCredentials([string(credentialsId: 'nexus_passwd', variable: 'nexus_cred')]) {
+                script {
+                    withCredentials([string(credentialsId: 'nexus_passwd', variable: 'nexus_cred')]) {
                     sh '''
                         docker build -t 35.74.253.177:8083/springapp:${VERSION} .
                         docker login -u admin -p $nexus_cred 35.74.253.177:8083
                         docker push 35.74.253.177:8083/springapp:${VERSION}
                         docker rmi 35.74.253.177:8083/springapp:${VERSION}
                     '''
+                    }               
                 }
             }
-        }
+        }        
     }
 }
