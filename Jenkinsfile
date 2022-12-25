@@ -1,34 +1,27 @@
 pipeline {
     agent any
+
+//     environment {
+//         VERSION = "${env.BUILD_ID}"
+//     }
+       
     stages {
-        stage('clone branch test') {
+        stage ('Sonar quality checks') {
+            agent {
+                docker {
+                    image 'maven'
+                }
+            }
             steps {
                 script {
-                    sh 'ls -ltra'
+                    withSonarQubeEnv(credentialsId: 'sonar-token') {
+                        sh 'mvn clean package sonar:sonar'
+                    }
                 }
             }
         }
     }
 }
-//     environment {
-//         VERSION = "${env.BUILD_ID}"
-//     }
-       
-//     stages {
-//         stage ('Sonar quality checks') {
-//             agent {
-//                 docker {
-//                     image 'maven'
-//                 }
-//             }
-//             steps {
-//                 script {
-//                     withSonarQubeEnv(credentialsId: 'sonar-token') {
-//                         sh 'mvn clean package sonar:sonar'
-//                     }
-//                 }
-//             }
-//         }
 //         stage ('Quality gate status') {
 //             steps {
 //                 script {
