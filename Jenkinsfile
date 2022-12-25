@@ -1,18 +1,19 @@
 pipeline {
     agent any
-//     environment {
-//         VERSION = "${env.BUILD_ID}"
-//     }
-       
     stages {
-        stage ('clone branch test') {
+        stage('clone branch test') {
             steps {
                 script {
                     sh 'ls -ltra'
                 }
             }
         }
-    }   
+    }
+}
+//     environment {
+//         VERSION = "${env.BUILD_ID}"
+//     }
+       
 //     stages {
 //         stage ('Sonar quality checks') {
 //             agent {
@@ -52,4 +53,4 @@ pipeline {
 //             }
 //         }        
 //     }
-}
+// }
