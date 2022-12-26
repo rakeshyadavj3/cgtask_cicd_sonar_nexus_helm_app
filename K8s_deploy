@@ -2,41 +2,44 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: cgtest0301
-  name: cgtest03dep
+    app: cgtask03
+  name: cgtask03
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: cgtest0301
+      app: cgtask03
   template:
     metadata:
       labels:
-        app: cgtest0301
+        app: cgtask03
     spec:
       containers:
-      - name: cgtest03cont
-        image: 35.74.253.177:8083/springapp
-        imagePullPolicy: Always
+      - name: cgtask03
+        image: 35.74.253.177:8083/springapp:11
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
           name: http
           protocol: TCP
-#Service Type LoadBalancer
+      imagePullSecrets:
+      - name: nexus-secret
+      
+#Service Type Loadbalancer
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels: 
-    app: cgtest0301
-    k8s-app: cgtest0301
-  name: cgtest03svc
+    app: cgtask03
+    k8s-app: cgtask03
+  name: cgtask03
 spec:
-  selector:
-    app: cgtest0301
   ports:
   - name: http
     port: 80
     protocol: TCP
     targetPort: 8080
-  type: Loadbalancer
+  type: LoadBalancer
+  selector:
+    app: cgtask03
