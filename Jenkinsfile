@@ -46,15 +46,12 @@ pipeline {
             steps {
                 script {
                     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s_deploy', namespace: '', serverUrl: '') {
-                        withCredentials([string(credentialsId: 'nexus_passwd', variable: 'nexus_cred')]) {
-                            sh 'docker login -u admin -p $nexus_cred 35.74.253.177:8083'
+                            sh 'docker login -u admin -p nexus 35.74.253.177:8083'
                             sh '''
                             kubectl get nodes
-                            sed -i "s;VERS;$VERS;" K8s_deploy.yaml
                             kubectl apply -f K8s_nex_deploy.yaml
                             kubectl get pods
                             '''
-                        }
                     }
                 }
             }
