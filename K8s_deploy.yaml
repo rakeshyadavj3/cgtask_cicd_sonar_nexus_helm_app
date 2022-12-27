@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cgtask03
-        image: 35.74.253.177:8083/springapp:VERS
+        image: 423313918070.dkr.ecr.ap-northeast-1.amazonaws.com/cgtask03
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
