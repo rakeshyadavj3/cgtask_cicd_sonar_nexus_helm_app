@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: cgtask03
-        image: 35.74.253.177:8083/springapp:11
+        image: 35.74.253.177:8083/springapp:VERS
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
