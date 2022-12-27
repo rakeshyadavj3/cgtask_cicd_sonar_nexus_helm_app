@@ -16,14 +16,13 @@ spec:
     spec:
       containers:
       - name: cgtask03
-        image: 35.74.253.177:8083/springapp:9
+        image: 35.74.253.177:8083/repository/docker-hosted/springapp:11
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
           name: http
           protocol: TCP
-      imagePullSecrets:
-      - name: nexus-secret
+
       
 #Service Type Loadbalancer
 ---
