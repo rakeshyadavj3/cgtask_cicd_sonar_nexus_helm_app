@@ -41,6 +41,20 @@ pipeline {
                     }               
                 }
             }
-        }        
+        }
+        stage ('deploy into cluster') {
+            steps {
+                script {
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'k8s_deploy', namespace: '', serverUrl: '') {
+                        sh '''
+                        kubectl get nodes
+                        sed -i "s;VERS;${VERSION};" K8s_deploy.yaml
+                        kubectl apply -f K8s_deploy.yaml
+                        kubectl get pods
+                        '''
+                    }
+                }
+            }
+        }       
     }
 }
